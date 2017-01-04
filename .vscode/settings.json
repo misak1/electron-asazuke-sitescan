@@ -1,0 +1,27 @@
+// 既定の設定とユーザー設定を上書きするには、このファイル内に設定を挿入します
+{
+    "files.exclude": {
+        // "dist-nomuraHD": true,
+        // "dist-nomuraHD/en": true,
+        // "dist-nomuraHD/_cgi-bin/en": true,
+        // "src-nomuraHD": true,
+        "**/200*/": true,
+        "**/2011*/": true,
+        "**/2012*/": true,
+        "**/2013*/": true,
+        "**/2014*/": true,
+        "tmp": true
+    },
+    "search.exclude": {
+        // "dist-nomuraHD": true,
+        // "dist-nomuraHD/en": true,
+        // "dist-nomuraHD/_cgi-bin/en": true,
+        // "src-nomuraHD": true,
+        "**/200*/": true,
+        "**/2011*/": true,
+        "**/2012*/": true,
+        "**/2013*/": true,
+        "**/2014*/": true,
+        "tmp": true
+    }
+}

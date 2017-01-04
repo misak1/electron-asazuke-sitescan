@@ -1,0 +1,55 @@
+{
+  "name": "el-casper",
+  "version": "1.0.0",
+  "description": "Asazuke SiteScan",
+  "main": "main.js",
+  "config": {
+    "appname": "SiteScan",
+    "company": "",
+    "appfilename": "AsazukeSiteScan",
+    "copyright": "&copy; 2016"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd node_modules/spooky; npm install;",
+    "start": "electron .",
+    "css:main": "stylus -w -c css/main.styl -o css/main.min.css",
+    "build:darwin": "electron-packager . AsazukeSiteScan --out=bin --overwrite --platform=darwin --arch=x64 --version=1.4.13 --icon=images/app.icns",
+    "build:win32": "electron-packager . AsazukeSiteScan --out=bin --overwrite --platform=win32 --arch=x64 --version=1.4.13 --icon=images/app.ico",
+    "build": "npm-run-all build:*"
+  },
+  "repository": "",
+  "keywords": [
+    "electron",
+    "casperjs",
+    "spooky"
+  ],
+  "author": "Misaki Shibata<misaki.pink@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {
+    "casper": "^0.1.1",
+    "casperjs": "^1.1.3",
+    "electron": "^1.4.13",
+    "electron-debug": "^1.1.0",
+    "electron-workers": "^1.10.0",
+    "date-utils": "^1.2.21",
+    "electron-json-storage": "^2.1.0",
+    "electron-packager": "^8.4.0",
+    "electron-search-text": "^0.3.0",
+    "electron-stream": "^4.0.0",
+    "jquery": "^2.2.4",
+    "spooky": "^0.2.5",
+    "tiny-jsonrpc": "^2.0.1",
+    "url-parse": "^1.1.7",
+    "log": "^1.4.0",
+    "mkdirp": "^0.5.1",
+    "npm-run-all": "^4.0.0",
+    "open": "^0.0.5",
+    "parse-json": "file:submodules/parse-json",
+    "m-console": "file:submodules/m-console",
+    "path": "^0.12.7"
+  }
+}
