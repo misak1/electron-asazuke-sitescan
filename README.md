@@ -17,11 +17,14 @@ SETX /M PATH "%PATH%;c:\phantomjs-2.1.1-windows\bin"
 SETX /M PATH "%PATH%;c:\casperjs-1.1.3\bin"
 ```
 
-- 起動方法
+## 起動方法
 ```
 npm start
 ```
 
-- 課題
+## 課題
 spookyでもelectronでアプリ化してしまうとcasperjsが起動出来ないようなので
 `npm start`で起動して下さい。
+
+## スクリーンショット
+<img src="https://github.com/misak1/electron-asazuke-sitescan/blob/img-upload/images/ss-agif.gif?raw=true" width="480" alt="DOWNLOAD">
