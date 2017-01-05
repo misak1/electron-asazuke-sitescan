@@ -3,11 +3,8 @@ var TARGET_URL = 'http://pickles2.pxt.jp/';
 var list = {}; // 処理済みリスト
 
 var parse = require('url-parse');
-var url = parse(TARGET_URL, true);
-var host = url.host; // host = hostname + port
-
-mConsole.appendMsg('Spooky start ...');
-mConsole.appendMsg(host);
+var url = "";
+var host = "";
 
 var logfile = host + '.txt';
 var progressfile = host + '-progress.txt';
@@ -22,6 +19,11 @@ var updateConf = function (setting) {
   TARGET_URL = setting.url;
   tmpLinks = [];
   tmpLinks.push(TARGET_URL);
+
+  url = parse(TARGET_URL, true);
+  host = url.host; // host = hostname + port
+  mConsole.appendMsg('Spooky start ...');
+  mConsole.appendMsg(host);
 }
 var getConf = function () {
   return appConf;
@@ -109,11 +111,11 @@ var loop = function (url) {
       mConsole.appendMsg(stack);
     }
   });
-  
+
   ceSpooky.on('cecapture', function (filename) {
     cap_i++;
     var sec = ("0000" + (cap_i)).slice(-5);
-    fs.renameSync(filename, appConf.output_dir + '/' + sec + filename );
+    fs.renameSync(filename, appConf.output_dir + '/' + sec + filename);
   });
   ceSpooky.on('ceinfo', function (csinfo) {
     console.log("ceinfo");
