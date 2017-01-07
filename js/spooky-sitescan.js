@@ -124,7 +124,7 @@ var loop = function (url) {
 
     var c = Object.keys(list).length;
     var p = tmpLinks.length;
-    progress(Math.floor(c / p * 100), c + ' / ' + p);
+    progress((c / p * 100), c + ' / ' + p);
     mConsole.appendMsg(csinfo.url);
 
     fs.writeFileSync(appConf.output_dir + '/sitescan-log.txt', tmpLinks.join("\n") + "\n");
