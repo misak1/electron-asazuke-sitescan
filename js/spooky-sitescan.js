@@ -23,7 +23,8 @@ var updateConf = function (setting) {
   url = parse(TARGET_URL, true);
   host = url.host; // host = hostname + port
   mConsole.appendMsg('Spooky start ...');
-  mConsole.appendMsg(host);
+  mConsole.appendMsg('START_URL -> ' + TARGET_URL);
+  mConsole.appendMsg('----------------------------------------');
 }
 var getConf = function () {
   return appConf;
@@ -124,7 +125,11 @@ var loop = function (url) {
 
     var c = Object.keys(list).length;
     var p = tmpLinks.length;
-    progress((c / p * 100), c + ' / ' + p);
+    if(p > 1){
+      progress((c / p * 100), c + ' / ' + p);
+    }else{
+      progress(1, c + ' / ' + p);
+    }
     mConsole.appendMsg(csinfo.url);
 
     fs.writeFileSync(appConf.output_dir + '/sitescan-log.txt', tmpLinks.join("\n") + "\n");
