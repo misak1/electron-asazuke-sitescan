@@ -12,7 +12,10 @@ var progressfile = host + '-progress.txt';
 var tmpLinks = [];
 tmpLinks.push(TARGET_URL);
 var cap_i = 0;
-var Spooky = require("spooky");
+var Spooky = require('./submodules/spooky/lib/spooky.js');
+// var Spooky = require('spooky');
+console.log(Spooky);
+
 var fs = require('fs');
 
 var updateConf = function (setting) {
