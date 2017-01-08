@@ -38,6 +38,7 @@ var loop = function (url) {
   if (list[url]) {
     // NEXT URL
     var arydiff = array_diff(Object.keys(list), tmpLinks);
+    // tmpLinks = arydiff;
     url = arydiff.shift();
     loop(url);
     return true;
@@ -53,7 +54,7 @@ var loop = function (url) {
 
   var ceSpooky = new Spooky({
     child: {
-      transport: 'http'
+      transport: 'stdio'
     },
     casper: {
       logLevel: 'debug',
@@ -122,10 +123,7 @@ var loop = function (url) {
     fs.renameSync(filename, appConf.output_dir + '/' + sec + filename);
   });
   ceSpooky.on('ceinfo', function (csinfo) {
-    console.log("ceinfo");
-    console.log(csinfo);
-    console.log(csinfo.url);
-
+    console.log("ceinfo", csinfo, csinfo.url);
     var c = Object.keys(list).length;
     var p = tmpLinks.length;
     if(p > 1){

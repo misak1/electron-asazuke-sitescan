@@ -94,7 +94,8 @@ var serializeMethods = function (o) {
 var Spooky = function (options, callback) {
     EventEmitter.call(this);
     this.options = options = _.defaults(_.clone(options || {}), defaults);
-
+// console.log(this.options);
+// console.log(defaults);
     for (var k in defaults) {
         if (defaults[k] && _.isObject(defaults[k]) && !_.isArray(defaults[k])) {
             this.options[k] =
@@ -107,6 +108,7 @@ var Spooky = function (options, callback) {
 
     serializeMethods(options.casper);
 
+// console.log('options.child.transport', options.child.transport);
     if (options.child.transport === 'http') {
         this._child =
             Spooky._instances[options.child.port] = this._spawnChild();
