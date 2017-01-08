@@ -166,7 +166,6 @@ storage.get('userAgent', function (error, data) {
 	if (Object.keys(data).length === 0) {
 		// データがないときの処理
 		jsonUserAgent = require('./_userAgent.json');
-		console.log(jsonUserAgent);
 	}
 	storage.set('userAgent', jsonUserAgent, function (error) {
 		if (error) throw error;
