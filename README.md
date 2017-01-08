@@ -15,6 +15,11 @@ c:\casperjs-1.1.3
 2. 管理者でコマンドプロンプトを開いて次のコマンドを叩きます。
 SETX /M PATH "%PATH%;c:\phantomjs-2.1.1-windows\bin"
 SETX /M PATH "%PATH%;c:\casperjs-1.1.3\bin"
+
+3. ソースの配置
+git clone https://github.com/pickles2/electron-asazuke-sitescan.git
+cd electron-asazuke-sitescan
+npm i
 ```
 
 ## 起動方法
@@ -23,8 +28,8 @@ npm start
 ```
 
 ## 課題
-spookyでもelectronでアプリ化してしまうとcasperjsが起動出来ないようなので
-`npm start`で起動して下さい。
+electronでアプリ化するとspooky(casperjs)が起動出来ない問題があるので
+`npm start`から起動して下さい。
 
 ## スクリーンショット
 <img src="https://github.com/misak1/electron-asazuke-sitescan/blob/img-upload/images/ss-agif.gif?raw=true" width="480" alt="DOWNLOAD">
