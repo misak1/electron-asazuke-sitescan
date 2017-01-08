@@ -131,7 +131,9 @@ var loop = function (url) {
     }else{
       progress(1, c + ' / ' + p);
     }
-    mConsole.appendMsg(csinfo.url);
+    var url = csinfo.url;
+    // mConsole.appendMsg('<a href="'+url+'" target="_blank">'+url+'</a>');
+    mConsole.appendMsg('<a href="javascript:require(\'electron\').shell.openExternal(\''+url+'\');">'+url+'</a>');
 
     fs.writeFileSync(appConf.output_dir + '/sitescan-log.txt', tmpLinks.join("\n") + "\n");
     fs.appendFileSync(appConf.output_dir + '/sitescan-progress.txt', csinfo.url + "\n");
