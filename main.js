@@ -52,8 +52,8 @@ app.on('ready', function () {
         // title: package_info.config.appname
     })
     // and load the index.html of the app.
-    browserWindow.loadURL('file://' + __dirname + '/contents.html') // webviewデバッグ
-    // browserWindow.loadURL('file://' + __dirname + '/index.html')
+    // browserWindow.loadURL('file://' + __dirname + '/contents.html') // webviewデバッグ
+    browserWindow.loadURL('file://' + __dirname + '/index.html')
 
     let application_menu = [{
         label: "Edit",
@@ -143,5 +143,5 @@ app.on('ready', function () {
 
     //browserWindow.toggleDevTools()
     // Open the DevTools.
-    browserWindow.webContents.openDevTools()
+    // browserWindow.webContents.openDevTools()
 })
