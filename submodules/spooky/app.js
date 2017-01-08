@@ -1,6 +1,8 @@
-
+// try {
+//     var Spooky = require('spooky');
+// } catch (e) {
     var Spooky = require('./lib/spooky');
-
+// }
 
 var _ = require('underscore');
 var _html = (function () {/*
@@ -65,7 +67,7 @@ var screenshotDateTime = screenshotNow.getFullYear() + pad(screenshotNow.getMont
 
 var spooky = new Spooky({
         child: {
-            transport: 'http'
+            transport: 'stdio'
         },
         casper: {
             logLevel: 'debug',

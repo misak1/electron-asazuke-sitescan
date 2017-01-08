@@ -1,20 +1,20 @@
-try {
-    var Spooky = require('spooky');
-} catch (e) {
-    var Spooky = require('./lib/spooky');
-}
+// try {
+//     var Spooky = require('spooky');
+// } catch (e) {
+var Spooky = require('./lib/spooky');
+// }
 
 var x = Spooky.selectXPath;
 
 var spooky = new Spooky({
-        child: {
-            transport: 'http'
-        },
-        casper: {
-            logLevel: 'debug',
-            verbose: true
-        }
+    child: {
+        transport: 'stdio'
     },
+    casper: {
+        logLevel: 'debug',
+        verbose: true
+    }
+},
     function (err) {
         if (err) {
             e = new Error('Failed to initialize SpookyJS');
@@ -32,13 +32,13 @@ var spooky = new Spooky({
 
             for (var i = 0; i < 10; i++) {
                 // emit("hello",i);
-                this.wait(2000, function() {
-                    var title = this.evaluate(function(j){
+                this.wait(2000, function () {
+                    var title = this.evaluate(function (j) {
                         return document.getElementsByClassName("entry-title")[j].textContent;
-                    },j);
+                    }, j);
                     j++;
 
-                    emit("hello",title);
+                    emit("hello", title);
                 });
 
 
@@ -46,11 +46,10 @@ var spooky = new Spooky({
         });
 
 
-    spooky.run(function(){
-
-        this.exit();
+        spooky.run(function () {
+            this.exit();
+        });
     });
-});
 
 
 spooky.on('error', function (e, stack) {

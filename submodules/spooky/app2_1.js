@@ -1,13 +1,12 @@
-try {
-    var Spooky = require('spooky');
-} catch (e) {
+// try {
+//     var Spooky = require('spooky');
+// } catch (e) {
     var Spooky = require('./lib/spooky');
-}
-
+// }
 
 var spooky = new Spooky({
         child: {
-            transport: 'http'
+            transport: 'stdio'
         },
         casper: {
             logLevel: 'debug',
