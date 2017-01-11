@@ -159,31 +159,48 @@ $(function () {
 var parseJson = require('./submodules/parse-json/index.js');
 
 // UserAgent
-var ua = new parseJson('userAgent.json');
-// console.log(ua.getStatus());
-var jsonUserAgent = JSON.parse(ua.read());
-var $selectEl = $('select[name="useragent"]');
-for (var i in jsonUserAgent) {
-	var $group = $('<optgroup>');
-	$group.attr('label', i);
-	$grop_data = jsonUserAgent[i];
-	for (var i in $grop_data) {
-		$group.append($('<option label="' + i + '" value="' + $grop_data[i] + '">' + i + '</option>'));
+var jsonUserAgent = {};
+storage.get('userAgent', function (error, data) {
+	if (error) throw error;
+	jsonUserAgent = data;
+	if (Object.keys(data).length === 0) {
+		// データがないときの処理
+		jsonUserAgent = require('./_userAgent.json');
 	}
-	$selectEl.append($group);
-}
-
+	storage.set('userAgent', jsonUserAgent, function (error) {
+		if (error) throw error;
+	});
+	var $selectEl = $('select[name="useragent"]');
+	for (var i in jsonUserAgent) {
+		var $group = $('<optgroup>');
+		$group.attr('label', i);
+		$grop_data = jsonUserAgent[i];
+		for (var i in $grop_data) {
+			$group.append($('<option label="' + i + '" value="' + $grop_data[i] + '">' + i + '</option>'));
+		}
+		$selectEl.append($group);
+	}
+});
 // viewport
-var viewport = new parseJson('viewport.json');
-// console.log(viewport.getStatus());
-var jsonViewport = JSON.parse(viewport.read());
-var $selectEl = $('select[name="viewport"]');
-for (var i in jsonViewport) {
-	var $group = $('<optgroup>');
-	$group.attr('label', i);
-	$grop_data = jsonViewport[i];
-	for (var i in $grop_data) {
-		$group.append($('<option label="' + i + '" value="' + $grop_data[i] + '">' + i + '</option>'));
+var jsonViewport = {};
+storage.get('viewport', function (error, data) {
+	if (error) throw error;
+	jsonViewport = data;
+	if (Object.keys(data).length === 0) {
+		// データがないときの処理
+		jsonViewport = require('./_viewport.json');
 	}
-	$selectEl.append($group);
-}
+	storage.set('viewport', jsonViewport, function (error) {
+		if (error) throw error;
+	});
+	var $selectEl = $('select[name="viewport"]');
+	for (var i in jsonViewport) {
+		var $group = $('<optgroup>');
+		$group.attr('label', i);
+		$grop_data = jsonViewport[i];
+		for (var i in $grop_data) {
+			$group.append($('<option label="' + i + '" value="' + $grop_data[i] + '">' + i + '</option>'));
+		}
+		$selectEl.append($group);
+	}
+});

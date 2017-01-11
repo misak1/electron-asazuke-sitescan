@@ -1,0 +1,13 @@
+[
+  {
+    "phase": "カーデコ定義",
+    "system": "テスト基幹システム",
+    "subSystem": "テストテスト:サブシステム",
+    "documentID": "xxxx-zzzz",
+    "documentName": "共通事項:XX",
+    "createDate": "2015/10/14",
+    "createUser": "柴田美咲",
+    "alterDate": "2015/10/15",
+    "alterUser": "テストテスオ"
+  }
+]
