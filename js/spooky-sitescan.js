@@ -32,7 +32,8 @@ var updateConf = function (setting) {
 var getConf = function () {
   return appConf;
 }
-
+var casperExit = function () {;
+}
 var loop = function (url) {
   var url = url || TARGET_URL;
   if (list[url]) {
@@ -137,6 +138,8 @@ var loop = function (url) {
 
     fs.writeFileSync(appConf.output_dir + '/sitescan-log.txt', tmpLinks.join("\n") + "\n");
     fs.appendFileSync(appConf.output_dir + '/sitescan-progress.txt', csinfo.url + "\n");
+
+    this.destroy();
   });
   ceSpooky.on('celink', function (hrefs) {
     // mConsole.appendMsg('[host filter]');
