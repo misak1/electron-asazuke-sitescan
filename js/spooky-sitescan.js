@@ -66,8 +66,8 @@ var getConf = function () {
     appConf.logTmpLinks = host + '-tmpLink.txt';
     appConf.siteMapCSV = host + '-sitemap.csv';
 
-    // CSV head
-    fs.appendFileSync(appConf.output_dir + '/' + appConf.siteMapCSV, new CSV(cavData).encode() + "\n");
+    // CSV head CSVの引数は2次元配列である必要がある。
+    fs.appendFileSync(appConf.output_dir + '/' + appConf.siteMapCSV, new CSV([cavData]).encode() + "\n");
     return appConf;
 }
 var casperExit = function () {
@@ -171,60 +171,56 @@ var loop = function (url) {
                 });
                 this.emit('celink', arylink);
 
-                /* Sitemap */
-                var arySiteMap = this.evaluate(function () {
-                    return document.querySelectorAll('title')[0].innerText;
+                var hashSiteMap = this.evaluate(function () {
+                    var hashSiteMap = {};
+                    hashSiteMap['* content'] = "";
+                    hashSiteMap['* id'] = "";
+                    hashSiteMap['* title'] = "";
+                    hashSiteMap['* title_breadcrumb'] = "";
+                    hashSiteMap['* title_h1'] = "";
+                    hashSiteMap['* title_label'] = "";
+                    hashSiteMap['* title_full'] = "";
+                    hashSiteMap['* logical_path'] = "";
+                    hashSiteMap['* list_flg'] = 1;
+                    hashSiteMap['* layout'] = "";
+                    hashSiteMap['* orderby'] = "";
+                    hashSiteMap['* keywords'] = "";
+                    hashSiteMap['* description'] = "";
+                    hashSiteMap['* category_top_flg'] = "";
+                    hashSiteMap['* **delete_flg'] = "";
+                    hashSiteMap['* og:title'] = "";
+                    hashSiteMap['* og:description'] = "";
+                    hashSiteMap['* og:image'] = "";
+                    hashSiteMap['* og:type'] = "";
+                    hashSiteMap['* og:site_name'] = "";
+                    hashSiteMap['* og:url'] = "";
+                    hashSiteMap['* og:locale'] = "";
+                    hashSiteMap['* fb:app_id'] = "";
+                    hashSiteMap['* apple-touch-icon'] = "";
+                    hashSiteMap['* favicon'] = "";
+                    hashSiteMap['* viewport'] = "";
+
+                    var a,b,c,d,e,f,g,h,i,j,k,l,m,n,o;
+                    if (a = document.querySelectorAll('title')[0]) { hashSiteMap['* title'] = a.innerText; };
+                    if (b = document.querySelectorAll('h1')[0]) { hashSiteMap['* title_h1'] = b.innerText; };
+                    if (c = document.querySelectorAll('meta[name="keywords"]')[0]) { hashSiteMap['* keywords'] = c.getAttribute('content') };
+                    if (d = document.querySelectorAll('meta[name="description"]')[0]) { hashSiteMap['* description'] = d.getAttribute('content') };
+                    if (e = document.querySelectorAll('meta[property="og:title"]')[0]) { hashSiteMap['* og:title'] = e.getAttribute('content') };
+                    if (f = document.querySelectorAll('meta[property="og:description"]')[0]) { hashSiteMap['* og:description'] = f.getAttribute('content') };
+                    if (g = document.querySelectorAll('meta[property="og:image"]')[0]) { hashSiteMap['* og:image'] = g.getAttribute('content') };
+                    if (h = document.querySelectorAll('meta[property="og:type"]')[0]) { hashSiteMap['* og:type'] = h.getAttribute('content') };
+                    if (i = document.querySelectorAll('meta[property="og:site_name"]')[0]) { hashSiteMap['* og:site_name'] = i.getAttribute('content') };
+                    if (j = document.querySelectorAll('meta[property="og:url"]')[0]) { hashSiteMap['* og:url'] = j.getAttribute('content') };
+                    if (k = document.querySelectorAll('meta[property="og:locale"]')[0]) { hashSiteMap['* og:locale'] = k.getAttribute('content') };
+                    if (l = document.querySelectorAll('meta[property="fb:app_id"]')[0]) { hashSiteMap['* fb:app_id'] = l.getAttribute('content') };
+                    if (m = document.querySelectorAll('link[rel="apple-touch-icon"]')[0]) { hashSiteMap['* apple-touch-icon'] = m.getAttribute('href') };
+                    if (n = document.querySelectorAll('link[rel="shortcut icon"]')[0]) { hashSiteMap['* favicon'] = n.getAttribute('href') };
+                    if (o = document.querySelectorAll('meta[name="viewport"]')[0]) { hashSiteMap['* viewport'] = o.getAttribute('content') };
+                    console.log(hashSiteMap);
+                    return hashSiteMap;
                 });
-
-                var arySiteMap = this.evaluate(function () {
-                    var arySiteMap = [];
-                    arySiteMap['* content'] = "";
-                    arySiteMap['* id'] = "";
-                    arySiteMap['* title'] = "";
-                    arySiteMap['* title_breadcrumb'] = "";
-                    arySiteMap['* title_h1'] = "";
-                    arySiteMap['* title_label'] = "";
-                    arySiteMap['* title_full'] = "";
-                    arySiteMap['* logical_path'] = "";
-                    arySiteMap['* list_flg'] = 1;
-                    arySiteMap['* layout'] = "";
-                    arySiteMap['* orderby'] = "";
-                    arySiteMap['* keywords'] = "";
-                    arySiteMap['* description'] = "";
-                    arySiteMap['* category_top_flg'] = "";
-                    arySiteMap['* **delete_flg'] = "";
-                    arySiteMap['* og:title'] = "";
-                    arySiteMap['* og:description'] = "";
-                    arySiteMap['* og:image'] = "";
-                    arySiteMap['* og:type'] = "";
-                    arySiteMap['* og:site_name'] = "";
-                    arySiteMap['* og:url'] = "";
-                    arySiteMap['* og:locale'] = "";
-                    arySiteMap['* fb:app_id'] = "";
-                    arySiteMap['* apple-touch-icon'] = "";
-                    arySiteMap['* favicon'] = "";
-                    arySiteMap['* viewport'] = "";
-
-                    if (document.querySelector('title')) { arySiteMap['* title'] = document.querySelector('title').innerText; };
-                    if (document.querySelector('h1')) { arySiteMap['* title_h1'] = document.querySelector('h1').innerText; };
-                    if (document.querySelector('meta[name="keywords"]')) { arySiteMap['* keywords'] = document.querySelector('meta[name="keywords"]').getAttribute('content') };
-                    if (document.querySelector('meta[name="description"]')) { arySiteMap['* description'] = document.querySelector('meta[name="description"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="og:title"]')) { arySiteMap['* og:title'] = document.querySelector('meta[property="og:title"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="og:description"]')) { arySiteMap['* og:description'] = document.querySelector('meta[property="og:description"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="og:image"]')) { arySiteMap['* og:image'] = document.querySelector('meta[property="og:image"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="og:type"]')) { arySiteMap['* og:type'] = document.querySelector('meta[property="og:type"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="og:site_name"]')) { arySiteMap['* og:site_name'] = document.querySelector('meta[property="og:site_name"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="og:url"]')) { arySiteMap['* og:url'] = document.querySelector('meta[property="og:url"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="og:locale"]')) { arySiteMap['* og:locale'] = document.querySelector('meta[property="og:locale"]').getAttribute('content') };
-                    if (document.querySelector('meta[property="fb:app_id"]')) { arySiteMap['* fb:app_id'] = document.querySelector('meta[property="fb:app_id"]').getAttribute('content') };
-                    if (document.querySelector('link[rel="apple-touch-icon"]')) { arySiteMap['* apple-touch-icon'] = document.querySelector('link[rel="apple-touch-icon"]').getAttribute('href') };
-                    if (document.querySelector('link[rel="shortcut icon"]')) { arySiteMap['* favicon'] = document.querySelector('link[rel="shortcut icon"]').getAttribute('href') };
-                    if (document.querySelector('meta[property="viewport"]')) { arySiteMap['* viewport'] = document.querySelector('meta[property="viewport"]').getAttribute('content') };
-
-                    return arySiteMap;
-                });
-                arySiteMap['* path'] = csinfo.url;
-                this.emit('sitemap', arySiteMap);
+                hashSiteMap['* path'] = csinfo.url;
+                this.emit('sitemap', hashSiteMap);
                 /* /Sitemap */
             });
         }
@@ -268,15 +264,14 @@ var loop = function (url) {
 
         // this.destroy();
     });
-    ceSpooky.on('sitemap', function (arySiteMap) {
-        console.log("arySiteMap", arySiteMap);
+    ceSpooky.on('sitemap', function (hashSiteMap) {
         var _data = [];
         cavData.forEach(function (key) {
-            _data.push(cavData[key]);
+            _data.push(hashSiteMap[key]);
         }, this);
-        console.log("data2", _data);
-        fs.appendFileSync(appConf.output_dir + '/' + appConf.siteMapCSV, new CSV(_data).encode() + "\n");
-
+        // CSVの引数は2次元配列である必要がある。
+        var _csv = new CSV([_data]).encode();
+        fs.appendFileSync(appConf.output_dir + '/' + appConf.siteMapCSV, _csv + "\n");
         // this.destroy();
     });
     ceSpooky.on('celink', function (hrefs) {

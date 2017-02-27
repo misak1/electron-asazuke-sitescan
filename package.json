@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "casper": "^0.1.1",
+    "comma-separated-values": "^3.6.4",
     "date-utils": "^1.2.21",
     "electron": "^1.4.13",
     "electron-debug": "^1.1.0",
