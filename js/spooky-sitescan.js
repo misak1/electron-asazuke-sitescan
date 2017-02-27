@@ -12,9 +12,8 @@ var progressfile = host + '-progress.txt';
 var tmpLinks = [];
 tmpLinks.push(TARGET_URL);
 var cap_i = 0;
-var Spooky = require('./submodules/spooky/lib/spooky.js');
-// var Spooky = require('spooky');
-console.log(Spooky);
+// var Spooky = require('./submodules/spooky/lib/spooky.js');
+var Spooky = require('spooky');
 
 var fs = require('fs');
 
@@ -139,7 +138,7 @@ var loop = function (url) {
     fs.writeFileSync(appConf.output_dir + '/sitescan-log.txt', tmpLinks.join("\n") + "\n");
     fs.appendFileSync(appConf.output_dir + '/sitescan-progress.txt', csinfo.url + "\n");
 
-    this.destroy();
+    // this.destroy();
   });
   ceSpooky.on('celink', function (hrefs) {
     // mConsole.appendMsg('[host filter]');
@@ -193,9 +192,8 @@ var loop = function (url) {
 
     // 空配列削除
     tmpLinks = tmpLinks.filter(function (e) { return e !== ""; });
-
+    this.destroy();
     loop(url);
   });
 };
-// go
-// loop();
+
