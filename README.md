@@ -19,7 +19,7 @@ SETX /M PATH "%PATH%;c:\casperjs-1.1.3\bin"
 3. ソースの配置
 git clone https://github.com/pickles2/electron-asazuke-sitescan.git
 cd electron-asazuke-sitescan
-npm i
+npm install
 ```
 
 ## 起動方法
