@@ -200,7 +200,7 @@ var loop = function (url) {
                     hashSiteMap['* favicon'] = "";
                     hashSiteMap['* viewport'] = "";
 
-                    var a,b,c,d,e,f,g,h,i,j,k,l,m,n,o;
+                    var a, b, c, d, e, f, g, h, i, j, k, l, m, n, o;
                     if (a = document.querySelectorAll('title')[0]) { hashSiteMap['* title'] = a.innerText; };
                     if (b = document.querySelectorAll('h1')[0]) { hashSiteMap['* title_h1'] = b.innerText; };
                     if (c = document.querySelectorAll('meta[name="keywords"]')[0]) { hashSiteMap['* keywords'] = c.getAttribute('content') };
@@ -267,8 +267,14 @@ var loop = function (url) {
     ceSpooky.on('sitemap', function (hashSiteMap) {
         var _data = [];
         cavData.forEach(function (key) {
-            _data.push(hashSiteMap[key]);
+            if (key === '* path') {
+                url = parse(hashSiteMap[key], true);
+                _data.push(url.pathname);
+            } else {
+                _data.push(hashSiteMap[key]);
+            }
         }, this);
+
         // CSVの引数は2次元配列である必要がある。
         var _csv = new CSV([_data]).encode();
         fs.appendFileSync(appConf.output_dir + '/' + appConf.siteMapCSV, _csv + "\n");
