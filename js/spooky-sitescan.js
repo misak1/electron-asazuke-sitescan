@@ -32,6 +32,7 @@ var getConf = function () {
     // custom property
     appConf.logfile = host + '.txt';
     appConf.progressfile = host + '-progress.txt';
+    appConf.captureing;
     return appConf;
 }
 var casperExit = function () {
@@ -83,39 +84,60 @@ var loop = function (url) {
             }
         });
 
-        var captureing = appConf.captureing;
-        console.log('captureing', captureing);
-        // custom property
-        ceSpooky.isCaptureing = captureing;
-
         ceSpooky.userAgent(appConf.useragent);
-
         ceSpooky.start(url);
-        // mConsole.appendMsg(ceSpooky);
 
-        ceSpooky.then(function (csinfo) {
-            // CASPERJS CONTEXT
-            // capture
-            var parse = require('url-parse');
-            var url = parse(csinfo.url, true);
-            // url.sep(/) -> $
-            if (this.isCaptureing) {
+        if (appConf.captureing) {
+            // キャプチャあり
+            ceSpooky.then(function (csinfo) {
+                // CASPERJS CONTEXT
+                // capture
+                var parse = require('url-parse');
+                var url = parse(csinfo.url, true);
+                // url.sep(/) -> $
                 var encpath = encodeURIComponent(url.pathname).replace(/%2f/ig, '$');
                 var filename = encpath + '.png';
                 this.capture(filename);
                 this.emit('cecapture', filename);
-            }
-            this.emit('ceinfo', csinfo);
 
-            // get absolute href
-            var arylink = this.evaluate(function () {
-                var links = document.querySelectorAll('a');
-                return Array.prototype.map.call(links, function (e) {
-                    return e.href;
+                this.emit('ceinfo', csinfo);
+
+                // get absolute href
+                var arylink = this.evaluate(function () {
+                    var links = document.querySelectorAll('a');
+                    return Array.prototype.map.call(links, function (e) {
+                        return e.href;
+                    });
                 });
+                this.emit('celink', arylink);
             });
-            this.emit('celink', arylink);
-        });
+        } else {
+            // キャプチャ無し
+            ceSpooky.then(function (csinfo) {
+                // CASPERJS CONTEXT
+                // capture
+                var parse = require('url-parse');
+                var url = parse(csinfo.url, true);
+                // url.sep(/) -> $
+                // var encpath = encodeURIComponent(url.pathname).replace(/%2f/ig, '$');
+                // var filename = encpath + '.png';
+                // this.capture(filename);
+                // this.emit('cecapture', filename);
+
+                this.emit('ceinfo', csinfo);
+
+                // get absolute href
+                var arylink = this.evaluate(function () {
+                    var links = document.querySelectorAll('a');
+                    return Array.prototype.map.call(links, function (e) {
+                        return e.href;
+                    });
+                });
+                this.emit('celink', arylink);
+            });
+        }
+
+
         ceSpooky.run();
     });
     ceSpooky.on('error', function (e, stack) {
