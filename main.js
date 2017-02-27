@@ -21,7 +21,7 @@ app.on('window-all-closed', function () {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform != 'darwin') {
-        //force_quit=true; 
+        //force_quit=true;
         app.quit()
     }
 })
@@ -48,12 +48,12 @@ app.on('ready', function () {
     // Create the browser window.
     browserWindow = new BrowserWindow({
         width: 640,
-        height: 800,
+        height: 960,
         // title: package_info.config.appname
     })
     // and load the index.html of the app.
-    // browserWindow.loadURL('file://' + __dirname + '/contents.html') // webviewデバッグ
-    browserWindow.loadURL('file://' + __dirname + '/index.html')
+    browserWindow.loadURL('file://' + __dirname + '/contents.html') // webviewデバッグ
+    // browserWindow.loadURL('file://' + __dirname + '/index.html')
 
     let application_menu = [{
         label: "Edit",
