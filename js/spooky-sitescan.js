@@ -5,6 +5,7 @@ var list = {}; // 処理済みリスト
 var parse = require('url-parse');
 var url = "";
 var host = "";
+var pathname = "";
 
 var verboseLog = "";
 var progressfile = "";
@@ -55,6 +56,7 @@ var updateConf = function (setting) {
 
     url = parse(TARGET_URL, true);
     host = url.host; // host = hostname + port
+    pathname = url.pathname; //
     mConsole.appendMsg('Spooky start ...');
     mConsole.appendMsg('START_URL -> ' + TARGET_URL);
     mConsole.appendMsg('----------------------------------------');
@@ -347,7 +349,7 @@ var loop = function (url) {
                 console.log(e);
             }
             var _host = _url.host;
-
+            // ドメイン比較
             if (host === _host) {
                 return absoluteURL;
             } else {
@@ -382,8 +384,24 @@ var loop = function (url) {
         // mConsole.appendMsg('[join]');
         tmpLinks = uniqLinks;
 
+
+        // pathチェック
+        if (pathname.length > 0) {
+            //https://www.au.com/electricity/
+            tmpLinks = tmpLinks.filter(function (x, i, self) {
+                __url = parse(x, true);
+                __pathneme = __url.pathname;
+                if ((new RegExp('^' + pathname, 'gi')).test(__pathneme)) {
+                    return __pathneme;
+                } else {
+                    return "";
+                }
+            });
+        }
+
         // 空配列削除
         tmpLinks = tmpLinks.filter(function (e) { return e !== ""; });
+
         this.destroy();
         loop(url);
     });
