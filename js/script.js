@@ -77,7 +77,7 @@ $(function () {
 
         // URL
         console.log($('input[name="url"]').val());
-        var pattern = new RegExp("https?://[a-zA-Z_0-9/:%#\$&\?\(\)~\.=\+\-]+");
+        var pattern = new RegExp("^https?://[a-zA-Z_0-9/:%#\$&\?\(\)~\.=\+\-]+");
         if (pattern.test($('input[name="url"]').val())) {
             $('input[name="url"]').parents('tr').removeClass('is-error');
             setting['url'] = $('input[name="url"]').val();
