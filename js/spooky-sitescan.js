@@ -5,7 +5,7 @@ var list = {}; // 処理済みリスト
 var parse = require('url-parse');
 var url = "";
 var host = "";
-var pathname = "";
+var g_pathname = "";
 
 var verboseLog = "";
 var progressfile = "";
@@ -56,7 +56,7 @@ var updateConf = function (setting) {
 
     url = parse(TARGET_URL, true);
     host = url.host; // host = hostname + port
-    pathname = url.pathname; //
+    g_pathname = url.pathname; //
     mConsole.appendMsg('Spooky start ...');
     mConsole.appendMsg('START_URL -> ' + TARGET_URL);
     mConsole.appendMsg('----------------------------------------');
@@ -386,12 +386,12 @@ var loop = function (url) {
 
 
         // pathチェック
-        if (pathname.length > 0) {
+        if (g_pathname.length > 0 && g_pathname !== '/') {
             //https://www.au.com/electricity/
             tmpLinks = tmpLinks.filter(function (x, i, self) {
                 __url = parse(x, true);
                 __pathneme = __url.pathname;
-                if ((new RegExp('^' + pathname, 'gi')).test(__pathneme)) {
+                if ((new RegExp('^' + g_pathname, 'gi')).test(__pathneme)) {
                     return __pathneme;
                 } else {
                     return "";
