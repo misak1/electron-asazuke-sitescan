@@ -5,6 +5,7 @@ var list = {}; // 処理済みリスト
 var parse = require('url-parse');
 var url = "";
 var host = "";
+var g_pathname = "";
 
 var verboseLog = "";
 var progressfile = "";
@@ -55,6 +56,7 @@ var updateConf = function (setting) {
 
     url = parse(TARGET_URL, true);
     host = url.host; // host = hostname + port
+    g_pathname = url.pathname; //
     mConsole.appendMsg('Spooky start ...');
     mConsole.appendMsg('START_URL -> ' + TARGET_URL);
     mConsole.appendMsg('----------------------------------------');
@@ -147,6 +149,58 @@ var loop = function (url) {
                     });
                 });
                 this.emit('celink', arylink);
+
+                var hashSiteMap = this.evaluate(function () {
+                    var hashSiteMap = {};
+                    hashSiteMap['* content'] = "";
+                    hashSiteMap['* id'] = "";
+                    hashSiteMap['* title'] = "";
+                    hashSiteMap['* title_breadcrumb'] = "";
+                    hashSiteMap['* title_h1'] = "";
+                    hashSiteMap['* title_label'] = "";
+                    hashSiteMap['* title_full'] = "";
+                    hashSiteMap['* logical_path'] = "";
+                    hashSiteMap['* list_flg'] = 1;
+                    hashSiteMap['* layout'] = "";
+                    hashSiteMap['* orderby'] = "";
+                    hashSiteMap['* keywords'] = "";
+                    hashSiteMap['* description'] = "";
+                    hashSiteMap['* category_top_flg'] = "";
+                    hashSiteMap['* **delete_flg'] = "";
+                    hashSiteMap['* og:title'] = "";
+                    hashSiteMap['* og:description'] = "";
+                    hashSiteMap['* og:image'] = "";
+                    hashSiteMap['* og:type'] = "";
+                    hashSiteMap['* og:site_name'] = "";
+                    hashSiteMap['* og:url'] = "";
+                    hashSiteMap['* og:locale'] = "";
+                    hashSiteMap['* fb:app_id'] = "";
+                    hashSiteMap['* apple-touch-icon'] = "";
+                    hashSiteMap['* favicon'] = "";
+                    hashSiteMap['* viewport'] = "";
+
+                    var a, b, c, d, e, f, g, h, i, j, k, l, m, n, o;
+                    if (a = document.querySelector('title')) { hashSiteMap['* title'] = a.innerText; };
+                    if (b = document.querySelector('h1')) { hashSiteMap['* title_h1'] = b.innerText; };
+                    if (c = document.querySelector('meta[name="keywords"]')) { hashSiteMap['* keywords'] = c.getAttribute('content') };
+                    if (d = document.querySelector('meta[name="description"]')) { hashSiteMap['* description'] = d.getAttribute('content') };
+                    if (e = document.querySelector('meta[property="og:title"]')) { hashSiteMap['* og:title'] = e.getAttribute('content') };
+                    if (f = document.querySelector('meta[property="og:description"]')) { hashSiteMap['* og:description'] = f.getAttribute('content') };
+                    if (g = document.querySelector('meta[property="og:image"]')) { hashSiteMap['* og:image'] = g.getAttribute('content') };
+                    if (h = document.querySelector('meta[property="og:type"]')) { hashSiteMap['* og:type'] = h.getAttribute('content') };
+                    if (i = document.querySelector('meta[property="og:site_name"]')) { hashSiteMap['* og:site_name'] = i.getAttribute('content') };
+                    if (j = document.querySelector('meta[property="og:url"]')) { hashSiteMap['* og:url'] = j.getAttribute('content') };
+                    if (k = document.querySelector('meta[property="og:locale"]')) { hashSiteMap['* og:locale'] = k.getAttribute('content') };
+                    if (l = document.querySelector('meta[property="fb:app_id"]')) { hashSiteMap['* fb:app_id'] = l.getAttribute('content') };
+                    if (m = document.querySelector('link[rel="apple-touch-icon"]')) { hashSiteMap['* apple-touch-icon'] = m.getAttribute('href') };
+                    if (n = document.querySelector('link[rel="shortcut icon"]')) { hashSiteMap['* favicon'] = n.getAttribute('href') };
+                    if (o = document.querySelector('meta[name="viewport"]')) { hashSiteMap['* viewport'] = o.getAttribute('content') };
+                    console.log(hashSiteMap);
+                    return hashSiteMap;
+                });
+                hashSiteMap['* path'] = csinfo.url;
+                this.emit('sitemap', hashSiteMap);
+                /* /Sitemap */
             });
         } else {
             ceSpooky.then(function (csinfo) {
@@ -201,21 +255,21 @@ var loop = function (url) {
                     hashSiteMap['* viewport'] = "";
 
                     var a, b, c, d, e, f, g, h, i, j, k, l, m, n, o;
-                    if (a = document.querySelectorAll('title')[0]) { hashSiteMap['* title'] = a.innerText; };
-                    if (b = document.querySelectorAll('h1')[0]) { hashSiteMap['* title_h1'] = b.innerText; };
-                    if (c = document.querySelectorAll('meta[name="keywords"]')[0]) { hashSiteMap['* keywords'] = c.getAttribute('content') };
-                    if (d = document.querySelectorAll('meta[name="description"]')[0]) { hashSiteMap['* description'] = d.getAttribute('content') };
-                    if (e = document.querySelectorAll('meta[property="og:title"]')[0]) { hashSiteMap['* og:title'] = e.getAttribute('content') };
-                    if (f = document.querySelectorAll('meta[property="og:description"]')[0]) { hashSiteMap['* og:description'] = f.getAttribute('content') };
-                    if (g = document.querySelectorAll('meta[property="og:image"]')[0]) { hashSiteMap['* og:image'] = g.getAttribute('content') };
-                    if (h = document.querySelectorAll('meta[property="og:type"]')[0]) { hashSiteMap['* og:type'] = h.getAttribute('content') };
-                    if (i = document.querySelectorAll('meta[property="og:site_name"]')[0]) { hashSiteMap['* og:site_name'] = i.getAttribute('content') };
-                    if (j = document.querySelectorAll('meta[property="og:url"]')[0]) { hashSiteMap['* og:url'] = j.getAttribute('content') };
-                    if (k = document.querySelectorAll('meta[property="og:locale"]')[0]) { hashSiteMap['* og:locale'] = k.getAttribute('content') };
-                    if (l = document.querySelectorAll('meta[property="fb:app_id"]')[0]) { hashSiteMap['* fb:app_id'] = l.getAttribute('content') };
-                    if (m = document.querySelectorAll('link[rel="apple-touch-icon"]')[0]) { hashSiteMap['* apple-touch-icon'] = m.getAttribute('href') };
-                    if (n = document.querySelectorAll('link[rel="shortcut icon"]')[0]) { hashSiteMap['* favicon'] = n.getAttribute('href') };
-                    if (o = document.querySelectorAll('meta[name="viewport"]')[0]) { hashSiteMap['* viewport'] = o.getAttribute('content') };
+                    if (a = document.querySelector('title')) { hashSiteMap['* title'] = a.innerText; };
+                    if (b = document.querySelector('h1')) { hashSiteMap['* title_h1'] = b.innerText; };
+                    if (c = document.querySelector('meta[name="keywords"]')) { hashSiteMap['* keywords'] = c.getAttribute('content') };
+                    if (d = document.querySelector('meta[name="description"]')) { hashSiteMap['* description'] = d.getAttribute('content') };
+                    if (e = document.querySelector('meta[property="og:title"]')) { hashSiteMap['* og:title'] = e.getAttribute('content') };
+                    if (f = document.querySelector('meta[property="og:description"]')) { hashSiteMap['* og:description'] = f.getAttribute('content') };
+                    if (g = document.querySelector('meta[property="og:image"]')) { hashSiteMap['* og:image'] = g.getAttribute('content') };
+                    if (h = document.querySelector('meta[property="og:type"]')) { hashSiteMap['* og:type'] = h.getAttribute('content') };
+                    if (i = document.querySelector('meta[property="og:site_name"]')) { hashSiteMap['* og:site_name'] = i.getAttribute('content') };
+                    if (j = document.querySelector('meta[property="og:url"]')) { hashSiteMap['* og:url'] = j.getAttribute('content') };
+                    if (k = document.querySelector('meta[property="og:locale"]')) { hashSiteMap['* og:locale'] = k.getAttribute('content') };
+                    if (l = document.querySelector('meta[property="fb:app_id"]')) { hashSiteMap['* fb:app_id'] = l.getAttribute('content') };
+                    if (m = document.querySelector('link[rel="apple-touch-icon"]')) { hashSiteMap['* apple-touch-icon'] = m.getAttribute('href') };
+                    if (n = document.querySelector('link[rel="shortcut icon"]')) { hashSiteMap['* favicon'] = n.getAttribute('href') };
+                    if (o = document.querySelector('meta[name="viewport"]')) { hashSiteMap['* viewport'] = o.getAttribute('content') };
                     console.log(hashSiteMap);
                     return hashSiteMap;
                 });
@@ -295,7 +349,7 @@ var loop = function (url) {
                 console.log(e);
             }
             var _host = _url.host;
-
+            // ドメイン比較
             if (host === _host) {
                 return absoluteURL;
             } else {
@@ -330,8 +384,24 @@ var loop = function (url) {
         // mConsole.appendMsg('[join]');
         tmpLinks = uniqLinks;
 
+
+        // pathチェック
+        if (g_pathname.length > 0 && g_pathname !== '/') {
+            //https://www.au.com/electricity/
+            tmpLinks = tmpLinks.filter(function (x, i, self) {
+                __url = parse(x, true);
+                __pathneme = __url.pathname;
+                if ((new RegExp('^' + g_pathname, 'gi')).test(__pathneme)) {
+                    return __pathneme;
+                } else {
+                    return "";
+                }
+            });
+        }
+
         // 空配列削除
         tmpLinks = tmpLinks.filter(function (e) { return e !== ""; });
+
         this.destroy();
         loop(url);
     });
