@@ -1,7 +1,8 @@
 {
-  "name": "el-casper",
-  "version": "1.0.0",
+  "name": "pickles2-asazuke-site-scanner",
+  "version": "2.0.0-alpha.1+nb",
   "description": "Asazuke SiteScan",
+  "private": true,
   "main": "main.js",
   "config": {
     "appname": "SiteScan",
@@ -10,7 +11,7 @@
     "copyright": "&copy; 2016"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --ui tdd ./tests/",
     "postinstall": "cd node_modules/spooky; npm install;",
     "start": "node updateJson.js; electron .",
     "css:main": "stylus -w -c css/main.styl -o css/main.min.css",
@@ -30,7 +31,8 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "electron-prebuilt": "^1.4.13"
+    "electron-prebuilt": "^1.4.13",
+    "mocha": "^3.2.0"
   },
   "dependencies": {
     "casper": "^0.1.1",
