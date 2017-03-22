@@ -24,7 +24,10 @@
     "casperjs",
     "spooky"
   ],
-  "author": "Misaki Shibata<misaki.pink@gmail.com>",
+  "author": [
+    "Misaki Shibata <misaki.pink@gmail.com>",
+    "Tomoya Koyanagi <tomk79@gmail.com>"
+  ],
   "license": "MIT",
   "devDependencies": {
     "electron-prebuilt": "^1.4.13"
