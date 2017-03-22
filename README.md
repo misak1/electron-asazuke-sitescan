@@ -2,11 +2,11 @@
 
 `electron-sitescan` は `electron-asazuke` の sitescan の機能をデスクトップアプリ化したものになります。
 
-- electron-asazukeではphpのcurlでクロールしていたものを、今回ヘッドレスブラウザベースに書き直しています。
-- ヘッドレスブラウザはcasperjsをnodeモジュールとして扱えるようにしたskoopyを使っています。
-- このアプリを使う為には別途、phantomjsとcasperjsをインストールされている必要があります。
-- phantomjsとcasperjsのインストールが未だの方はこのリポジトリ内に含まれるzipをご利用ください。
-- Windowsユーザの方はzipファイル(./docs/setup_resources/ にあります)を展開し、PATHを通してください。Cドライブ直下に展開する場合は次のようになります。
+- `electron-asazuke` では PHPの `curl` でクロールしていたものを、今回ヘッドレスブラウザベースに書き直しています。
+- ヘッドレスブラウザは `casperjs` を nodeモジュールとして扱えるようにした `spooky` を使っています。
+- このアプリを使う為には別途、 `phantomjs` と `casperjs` をインストールされている必要があります。
+- `phantomjs` と `casperjs` のインストールが未だの方はこのリポジトリ内に含まれるzipをご利用ください。
+- Windowsユーザの方はzipファイル(`./docs/setup_resources/` にあります)を展開し、PATHを通してください。Cドライブ直下に展開する場合は次のようになります。
 
 
 ## セットアップ手順
