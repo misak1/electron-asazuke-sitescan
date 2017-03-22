@@ -1,5 +1,5 @@
 var LINK_LEVEL = -1; // -1見つかるものがある限り
-var TARGET_URL = 'http://pickles2.pxt.jp/';
+var TARGET_URL = 'http://example.com/';
 var list = {}; // 処理済みリスト
 
 var parse = require('url-parse');
@@ -406,4 +406,3 @@ var loop = function (url) {
         loop(url);
     });
 };
-
