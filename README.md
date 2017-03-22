@@ -26,8 +26,16 @@ Mac の方は [Macユーザー向け](./docs/SETUP-mac.md) を、 Windows の方
 ## 起動方法
 
 ```
-npm start
+$ npm start
 ```
+
+
+## 設定
+
+- `data/userAgent.json`
+    - USER_AGENT の一覧を定義します。
+- `data/viewport.json`
+    - viewport の一覧を定義します。
 
 
 ## 課題
