@@ -14,6 +14,7 @@
     "test": "mocha --ui tdd ./tests/",
     "postinstall": "cd node_modules/spooky; npm install;",
     "start": "node updateJson.js; electron .",
+    "submodules-update": "rm -rfv node_modules/m-console; rm -rfv node_modules/parse-json; rm -rfv node_modules/spooky; npm install;",
     "css:main": "stylus -w -c css/main.styl -o css/main.min.css",
     "build:darwin": "electron-packager . AsazukeSiteScan --out=bin --overwrite --platform=darwin --arch=x64 --version=1.4.13 --icon=images/app.icns",
     "build:win32": "electron-packager . AsazukeSiteScan --out=bin --overwrite --platform=win32 --arch=x64 --version=1.4.13 --icon=images/app.ico",
