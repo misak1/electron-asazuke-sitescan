@@ -1,6 +1,0 @@
-$ brew update
-$ brew tap homebrew/versions
-$ brew search phantomjs
-$ brew install homebrew/versions/phantomjs198
-$ phantomjs -v
- 1.9.8

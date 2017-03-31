@@ -1,20 +1,156 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="./css/search.css" charset="utf-8">
+    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="css/main.min.css" media="screen,projection" />
+    <link rel="stylesheet" href="css/icomooon.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asazuke SiteScan</title>
 </head>
-
 <body>
-  <div class="electronSearchText-box">
-    <input type="text" class="electronSearchText-input">
-    <span class="electronSearchText-count"></span>
-  </div>
 
-  <webview src="./contents.html" nodeintegration charset="utf-8"></webview>
-  <script src="./js/search.js"></script>
+    <!-- search-box -->
+    <style>
+        webview {
+            height: 100%;
+        }
 
+        .search-box {
+            display: none;
+        }
+
+        .state-visible {
+            display: block;
+        }
+    </style>
+    <div class="search-box">
+        <input type="text" class="search-input">
+        <span class="search-count"></span>
+    </div>
+    <script>
+        const {ipcRenderer} = require('electron');
+        const ElectronSearchText = require('electron-search-text');
+        const searcher = new ElectronSearchText({
+            target: 'webview',
+            input: '.search-input',
+            count: '.search-count',
+            box: '.search-box',
+            visibleClass: '.state-visible'
+        });
+
+        ipcRenderer.on('toggleSearch', function () {
+            searcher.emit('toggle');
+        });
+    </script>
+    <!-- /search-box -->
+
+
+    <nav>
+        <div id="nav_toolbar" class="nav-wrapper">
+            <span class="brand-logo">
+					<img src="images/logo.png" width="131" align="top" />
+					<!--<span class="hide-on-small-and-down description">HEADER TITLE</span>-->
+            </span>
+        </div>
+    </nav>
+    <main>
+        <h1 class="c-h1">サイトスキャン</h1>
+        <div class="c-box">
+            <h2 class="c-h2">サイト情報</h2>
+            <table class="c-tbl1">
+                <tbody>
+                    <tr>
+                        <th>出力ディレクトリ</th>
+                        <td><input type="text" name="output_dir" placeholder="C:¥Users¥sample¥output">
+                            <p class="error-msg">ディレクトリを指定して下さい。</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>URL</th>
+                        <td><input type="text" name="url" placeholder="http://sample.co.jp/">
+                            <p class="error-msg">URLが正しくありません。</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>認証情報</th>
+                        <td>
+                            <table class="c-tbl2">
+                                <tbody>
+                                    <tr>
+                                        <th>ユーザーID</th>
+                                        <td><input type="text" name="userid" placeholder=""></td>
+                                    </tr>
+                                    <tr>
+                                        <th>パスワード</th>
+                                        <td><input type="text" name="passwd" placeholder=""></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>UserAgent</th>
+                        <td><select name="useragent">
+<option value="" selected></option>
+</select></td>
+                    </tr>
+                    <tr>
+                        <th>viewport</th>
+                        <td><select name="viewport">
+<option value="1500x1000" selected></option>
+</select></td>
+                    </tr>
+                    <tr>
+                        <th>オプション</th>
+                        <td>
+                            <label>ページ毎に発見したリンクをログ出力する（デフォルトOFF）<input type="checkbox" value="verbose_log" name="optioins"></label>
+                            <label>スクリーンキャプチャを取得する（デフォルトOFF）<input type="checkbox" value="captureing" name="optioins"></label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="u-center u-mt20">
+                <button class="c-button btn-execute">実行する</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="c-modal-wrapper">
+        <div class="c-modal">
+            <div class="c-modal_close">
+                <span class="icon-cross"></span>
+                <!--<span class="icon-checkmark"></span>-->
+            </div>
+            <div id="progressbar">
+                <!--<div id="progressbar-text">2 / 2019</div>-->
+                <div class="progress-label"></div>
+            </div>
+            <div class="hide-progress-text" style="display:none;">a / ab</div>
+            <!-- m-console -->
+            <div class="u-console m-console div-textarea"></div>
+            <!--/ m-console -->
+        </div>
+    </div>
+
+    <footer id="footer" class="page-footer">
+        <div class="footer-copyright">
+            <div v-html="currentPath"></div>
+        </div>
+    </footer>
+
+    <script>
+        window.$ = window.jQuery = require('./js/jquery-2.1.4.min.js');
+    </script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/array_util.js"></script>
+    <script src="js/spooky-sitescan.js"></script>
 </body>
 
 </html>

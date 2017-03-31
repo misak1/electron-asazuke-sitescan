@@ -178,7 +178,7 @@ storage.get('userAgent', function (error, data) {
     jsonUserAgent = data;
     if (Object.keys(data).length === 0) {
         // データがないときの処理
-        jsonUserAgent = require('./_userAgent.json');
+        jsonUserAgent = require('./data_dist/userAgent.json');
     }
     storage.set('userAgent', jsonUserAgent, function (error) {
         if (error) throw error;
@@ -201,7 +201,7 @@ storage.get('viewport', function (error, data) {
     jsonViewport = data;
     if (Object.keys(data).length === 0) {
         // データがないときの処理
-        jsonViewport = require('./_viewport.json');
+        jsonViewport = require('./data_dist/viewport.json');
     }
     storage.set('viewport', jsonViewport, function (error) {
         if (error) throw error;
