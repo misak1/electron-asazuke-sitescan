@@ -20,7 +20,7 @@
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
- - インストールされたバージョンの確認。あまり古いバージョンの場合はこのあとの処理が上手く行かない可能性があるので 
+ - インストールされたバージョンの確認。あまり古いバージョンの場合はこのあとの処理が上手く行かない可能性があるので
   `brew doctor; brew update; brew upgrade;`を使いバージョンを上げて下さい。
 ```
 $ brew -v
@@ -73,8 +73,8 @@ $ cd electron-asazuke-sitescan
 $ npm install
 ```
 
-- （オプション）electron-asazuke-sitescan内に作業ディレクトリを作ります。 
-  electron-asazuke-sitescan内に作業ディレクトリをつくることでこのアプリを使って行った作業が 
+- （オプション）electron-asazuke-sitescan内に作業ディレクトリを作ります。
+  electron-asazuke-sitescan内に作業ディレクトリをつくることでこのアプリを使って行った作業が
   gitの管理対象に含まれるので動作が把握しやすくなります。
 ```
 $ mkdir workspace
